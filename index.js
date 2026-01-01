@@ -1,4 +1,3 @@
-//! Start by creating the variables for the data recorded
 const day1TempF = 32;
 const day2TempC = 25;
 const day3TempF = 70;
@@ -30,62 +29,87 @@ const day28TempC = 17;
 const day29TempF = 76;
 const day30TempC = 29;
 
-//* Then work on the conversion of the temperature from Celsius to Fahrenheit (or vice versa)
-function fahrenheitToCelsius(tempF) {
-    return (tempF - 32) * 5 / 9;
-}
+const cToF = c => (c * 9) / 5 + 32;
+const fToC = f => ((f - 32) * 5) / 9;
 
-function celsiusToFahrenheit(tempC) {
-    return (tempC * 9 / 5) + 32;
-}
-
-//! Start the calculation of the total temperatures
-//* Then apply the conversion to calculate the total in the other unit of measurement
-
-// Convert all temperatures to Celsius
-const allTempsCelsius = [
-    fahrenheitToCelsius(day1TempF), day2TempC, fahrenheitToCelsius(day3TempF), day4TempC,
-    fahrenheitToCelsius(day5TempF), day6TempC, fahrenheitToCelsius(day7TempF), day8TempC,
-    fahrenheitToCelsius(day9TempF), day10TempC, fahrenheitToCelsius(day11TempF), day12TempC,
-    fahrenheitToCelsius(day13TempF), day14TempC, fahrenheitToCelsius(day15TempF), day16TempC,
-    fahrenheitToCelsius(day17TempF), day18TempC, fahrenheitToCelsius(day19TempF), day20TempC,
-    fahrenheitToCelsius(day21TempF), day22TempC, fahrenheitToCelsius(day23TempF), day24TempC,
-    fahrenheitToCelsius(day25TempF), day26TempC, fahrenheitToCelsius(day27TempF), day28TempC,
-    fahrenheitToCelsius(day29TempF), day30TempC
+const tempsF = [
+  day1TempF,
+  day3TempF,
+  day5TempF,
+  day7TempF,
+  day9TempF,
+  day11TempF,
+  day13TempF,
+  day15TempF,
+  day17TempF,
+  day19TempF,
+  day21TempF,
+  day23TempF,
+  day25TempF,
+  day27TempF,
+  day29TempF,
 ];
 
-// Convert all temperatures to Fahrenheit
-const allTempsFahrenheit = [
-    day1TempF, celsiusToFahrenheit(day2TempC), day3TempF, celsiusToFahrenheit(day4TempC),
-    day5TempF, celsiusToFahrenheit(day6TempC), day7TempF, celsiusToFahrenheit(day8TempC),
-    day9TempF, celsiusToFahrenheit(day10TempC), day11TempF, celsiusToFahrenheit(day12TempC),
-    day13TempF, celsiusToFahrenheit(day14TempC), day15TempF, celsiusToFahrenheit(day16TempC),
-    day17TempF, celsiusToFahrenheit(day18TempC), day19TempF, celsiusToFahrenheit(day20TempC),
-    day21TempF, celsiusToFahrenheit(day22TempC), day23TempF, celsiusToFahrenheit(day24TempC),
-    day25TempF, celsiusToFahrenheit(day26TempC), day27TempF, celsiusToFahrenheit(day28TempC),
-    day29TempF, celsiusToFahrenheit(day30TempC)
+const tempsC = [
+  day2TempC,
+  day4TempC,
+  day6TempC,
+  day8TempC,
+  day10TempC,
+  day12TempC,
+  day14TempC,
+  day16TempC,
+  day18TempC,
+  day20TempC,
+  day22TempC,
+  day24TempC,
+  day26TempC,
+  day28TempC,
+  day30TempC,
 ];
 
-//* Call the variables: tot_temperature_in_fahrenheit and tot_temperature_in_celsius
-const tot_temperature_in_celsius = allTempsCelsius.reduce((sum, temp) => sum + temp, 0);
-const tot_temperature_in_fahrenheit = allTempsFahrenheit.reduce((sum, temp) => sum + temp, 0);
+// Fahrenheit
 
-//! Start the calculation of the average temperatures
-//* Call the variables: avg_temperature_in_fahrenheit and avg_temperature_in_celsius
-const avg_temperature_in_celsius = tot_temperature_in_celsius / allTempsCelsius.length;
-const avg_temperature_in_fahrenheit = tot_temperature_in_fahrenheit / allTempsFahrenheit.length;
+let tot_temperature_in_fahrenheit = 0;
 
-//! Console.log the results for your own inspection if you'd like
-console.log('Total Celsius:', tot_temperature_in_celsius);
-console.log('Total Fahrenheit:', tot_temperature_in_fahrenheit);
-console.log('Average Celsius:', avg_temperature_in_celsius);
-console.log('Average Fahrenheit:', avg_temperature_in_fahrenheit);
+for (let i = 0; i < tempsF.length; i++) {
+  tot_temperature_in_fahrenheit += tempsF[i];
+}
 
-//! After creating the four variables mentioned above, uncomment the following lines
-//* This way you can export them to the test file, this is essential for the tests to work
-module.exports = {
+for (let i = 0; i < tempsC.length; i++) {
+  tot_temperature_in_fahrenheit =
+    tot_temperature_in_fahrenheit + cToF(tempsC[i]);
+}
+
+// Celsius
+
+let tot_temperature_in_celsius = 0;
+
+for (let i = 0; i < tempsC.length; i++) {
+  tot_temperature_in_celsius += tempsC[i];
+}
+
+for (let i = 0; i < tempsF.length; i++) {
+  tot_temperature_in_celsius =
+    tot_temperature_in_celsius + fToC(tempsF[i]);
+}
+
+const avg_temperature_in_fahrenheit = tot_temperature_in_fahrenheit / 30;
+const avg_temperature_in_celsius = tot_temperature_in_celsius / 30;
+
+
+console.log({
     tot_temperature_in_fahrenheit,
     tot_temperature_in_celsius,
     avg_temperature_in_fahrenheit,
-    avg_temperature_in_celsius
+    avg_temperature_in_celsius,
+});
+
+
+module.exports = {
+  tot_temperature_in_fahrenheit,
+  tot_temperature_in_celsius,
+  avg_temperature_in_fahrenheit,
+  avg_temperature_in_celsius,
 };
+
